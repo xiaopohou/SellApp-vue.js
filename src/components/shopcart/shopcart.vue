@@ -23,11 +23,38 @@
         </div>
       </div>
     </div>
+    <div class="ball-container">
+      <div transition="drop" v-for="ball in balls" class="" v-show="ball.show" class="ball">
+        <div class="inner inner-hook"></div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   export default {
+    data () {
+      return {
+        balls: [
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          }
+        ],
+        dropBalls: []
+      }
+    },
     props: {
       selectFoods: {
         type: Array,
@@ -74,6 +101,46 @@
           return 'not-enough'
         } else {
           return 'enough'
+        }
+      }
+    },
+    methods: {
+      drop (el) {
+        for (var i = 0; i < this.balls.length; i++) {
+          let ball = this.balls[i]
+          if (!ball.show) {
+            ball.show = true
+            ball.el = el
+            this.dropBalls.push(ball)
+            return
+          }
+        }
+      }
+    },
+    transition: {
+      drop: {
+        beforeEnter (el) {
+          let count = this.balls.length
+          while (count--) {
+            let ball = this.balls[count]
+            if (ball.show) {
+              let rect = ball.el.getBoundingClientRect()
+              let x = rect.left - 32
+              let y = -(window.innerHeight - rect.top - 22)
+              el.style.display = ''
+              el.style.webkitTransform = `translate3d(0,${y}px,0)`
+              el.style.transform = `translate3d(0,${y}px,0)`
+              let inner = el.getElementsByClassName('inner-hook')[0]
+              inner.style.webkitTransform = `translate3d(${x}px,0,0)`
+              inner.style.transform = `translate3d(${x}px,0,0)`
+            }
+          }
+        },
+        enter (el) {
+
+        },
+        afterEnter (el) {
+
         }
       }
     }
@@ -178,6 +245,24 @@
           &.enough{
             background: #00b43c;
             color: #fff;
+          }
+        }
+      }
+    }
+    .ball-container{
+      .ball{
+        position: fixed;
+        left: 32px;
+        bottom: 22px;
+        z-index: 200;
+        &.drop-transition{
+          transition: all .4s;
+          .inner{
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgb(0,160,220);
+            transition: all .4s;
           }
         }
       }
