@@ -20,13 +20,13 @@
           <span class="text">{{ seller.supports[0].description }}</span>
         </div>
       </div>
-      <div v-if="seller.supports" class="support-count" @click="showDetail">
+      <div v-if="seller.supports" class="support-count" @touchstart="showDetail">
         <span class="count">{{ seller.supports.length }}个</span>
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
     <!-- 公告 -->
-    <div class="bulletin-wrapper" @click="showDetail">
+    <div class="bulletin-wrapper" @touchstart="showDetail">
       <span class="bulletin-title"></span><span class="bulletin-text">{{ seller.bulletin }}</span>
       <i class="icon-keyboard_arrow_right"></i>
     </div>
@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div class="detail-close" @click="hideDetail">
+      <div class="detail-close" @touchstart="hideDetail">
         <i class="icon-close"></i>
       </div>
     </div>

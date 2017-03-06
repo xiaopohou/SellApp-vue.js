@@ -8,6 +8,10 @@ import seller from 'components/seller/seller.vue'
 
 import 'common/scss/index.scss'
 
+// document.querySelector('body').addEventListener('touchstart', function (event) {
+//   event.preventDefault()
+// })
+
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
