@@ -333,6 +333,7 @@
               padding: 0 12px;
               line-height: 24px;
               font-size: 12px;
+              text-align: justify;
             }
           }
         }

@@ -1,5 +1,5 @@
 <template>
-  <div class="seller">
+  <div class="seller" v-el:seller>
     <div class="seller-content">
       <div class="overview">
         <h1 class="title">{{ seller.name }}</h1>
@@ -29,18 +29,57 @@
           </li>
         </ul>
       </div>
+      <split></split>
+      <div class="bulletin">
+        <h1 class="title">公告与活动</h1>
+        <div class="content-wrapper">
+          <p class="content">{{ seller.bulletin }}</p>
+        </div>
+      </div>
+      <ul v-if="seller.supports"class="supports">
+        <li class="supports-item border-1px" v-for="item in seller.supports">
+          <span class="icon" :class="classMap[seller.supports[$index].type]"></span>
+          <span class="text">{{ seller.supports[$index].description }}</span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import BScroll from 'better-scroll'
   import star from 'components/star/star'
+  import split from 'components/split/split'
+
   export default {
     props: {
       seller: Object
     },
+    created () {
+      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+    },
+    watch: {
+      'seller' () {
+        this._initScroll()
+      }
+    },
+    ready () {
+      this._initScroll()
+    },
+    methods: {
+      _initScroll () {
+        if (!this.scroll) {
+          this.scroll = new BScroll(this.$els.seller, {
+            click: true
+          })
+        } else {
+          this.scroll.refresh()
+        }
+      }
+    },
     components: {
-      star
+      star,
+      split
     }
   }
 </script>
@@ -66,6 +105,7 @@
         page-break-after: 18px;
         line-height: 18px;
         font-size: 0;
+        padding-bottom: 10px;
         @include border-1px();
         .star{
           display: inline-block;
@@ -105,6 +145,65 @@
             }
           }
         }
+      }
+    }
+    .bulletin{
+      padding: 18px 18px 0 18px;
+      .title{
+        margin-bottom: 8px;
+        line-height: 14px;
+        color: rgb(7,17,27);
+        font-size: 14px;
+      }
+      .content-wrapper{
+        padding: 0 12px 16px 12px;
+        @include border-1px();
+        .content{
+          line-height: 24px;
+          font-size: 12px;
+          color: rgb(240,20,20);
+          text-align: justify;
+        }
+      }
+    }
+    .supports{
+      padding: 0 18px;
+      .supports-item{
+        padding: 16px 12px;
+        @include border-1px();
+        font-size: 0;
+        &:last-child{
+          @include border-none;
+        }
+      }
+      .icon{
+        display: inline-block;
+        vertical-align: top;
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+        background-size: 16px 16px;
+        background-repeat: no-repeat;
+        &.decrease{
+          @include bg-image('decrease_4');
+        }
+        &.discount{
+          @include bg-image('discount_4');
+        }
+        &.guarantee{
+          @include bg-image('guarantee_4');
+        }
+        &.invoice{
+          @include bg-image('invoice_4');
+        }
+        &.special{
+          @include bg-image('special_4');
+        }
+      }
+      .text{
+        line-height: 16px;
+        font-size: 12px;
+        color: rgb(7,17,27);
       }
     }
   }
