@@ -232,6 +232,7 @@
             margin-right: 12px;
             img{
                 border-radius: 50%;
+                background: #eee;
             }
           }
           .content{

@@ -207,7 +207,7 @@
       }
       .favorite{
         position: absolute;
-        top: 18px;
+        top: 14px;
         right: 12px;
         text-align: center;
         width: 44px;
