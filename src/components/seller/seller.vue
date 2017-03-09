@@ -28,6 +28,10 @@
             </div>
           </li>
         </ul>
+        <div class="favorite" @click="toggleFavorite">
+          <span class="icon-favorite" :class="{'active': favorite}"></span>
+          <span class="text">{{ favoriteText }}</span>
+        </div>
       </div>
       <split></split>
       <div class="bulletin">
@@ -70,6 +74,16 @@
   import split from 'components/split/split'
 
   export default {
+    data () {
+      return {
+        favorite: false
+      }
+    },
+    computed: {
+      favoriteText () {
+        return this.favorite ? '已收藏' : '收藏'
+      }
+    },
     props: {
       seller: Object
     },
@@ -113,6 +127,12 @@
             }
           })
         }
+      },
+      toggleFavorite (event) {
+        if (!event._constructed) {
+          return
+        }
+        this.favorite = !this.favorite
       }
     },
     components: {
@@ -133,6 +153,7 @@
     overflow: hidden;
     .overview{
       padding: 18px;
+      position: relative;
       .title{
         margin-bottom: 8px;
         line-height: 14px;
@@ -182,6 +203,27 @@
               font-size: 24px;
             }
           }
+        }
+      }
+      .favorite{
+        position: absolute;
+        top: 18px;
+        right: 12px;
+        text-align: center;
+        width: 44px;
+        .icon-favorite{
+          display: block;
+          line-height: 24px;
+          font-size: 24px;
+          color: #d4d6d9;
+          &.active{
+            color: rgb(240,20,20);
+          }
+        }
+        .text{
+          line-height: 10px;
+          font-size: 10px;
+          color: rgb(77,85,93);
         }
       }
     }
