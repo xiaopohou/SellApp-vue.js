@@ -1,14 +1,14 @@
 # 高仿饿了吗APP
 
-> 项目基于vue2/vue-router2/vue-resourse
+> 项目框架: vue2/vue-router2/vue-resourse
 
-> 构建工具:vue-cli(webpack)
+> 构建工具: vue-cli(webpack)
 
-> 预处理器:sass(scss)
+> 预处理器: sass(scss)
 
-> 语法检查:es-lint
+> 语法检查: es-lint
 
-> 布局:flex
+> 布局方案: flex
 
 ## Build Setup
 
