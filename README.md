@@ -10,6 +10,8 @@
 
 > 布局方案: flex
 
+> 包管理工具: yarn(很快，我hold不住)
+
 ## Build Setup
 
 ``` bash
